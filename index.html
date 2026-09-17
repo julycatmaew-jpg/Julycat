@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -477,13 +476,6 @@
                         <p class="text-xs text-brand-subtext">ชื่อบัญชี <strong id="payment-account-name" class="text-brand-text">Papatsara S.</strong></p>
                     </div>
 
-                    <img id="payment-banner-image" alt="ภาพบัญชีหรือ QR Code สำหรับโอนเงิน" class="hidden w-4/5 max-w-[280px] mx-auto aspect-square rounded-[32px] object-contain border border-brand-light bg-white mb-4">
-                    <div id="payment-banner-placeholder" class="w-4/5 max-w-[280px] mx-auto aspect-square rounded-[32px] border border-dashed border-brand-main/40 bg-brand-light/20 px-4 py-5 flex flex-col items-center justify-center text-center mb-4">
-                        <i class="fa-regular fa-image text-brand-main text-2xl mb-2"></i>
-                        <p class="text-xs font-semibold text-brand-text">ภาพบัญชี / QR Code</p>
-                        <p class="text-[10px] text-brand-subtext mt-1">อัปโหลดภาพได้จากโหมดแอดมิน</p>
-                    </div>
-
                     <div class="space-y-3">
                         <div class="rounded-[28px] border border-brand-light bg-brand-light/25 p-4">
                             <div class="flex items-center justify-between gap-3">
@@ -808,16 +800,6 @@
                                 <label class="text-[11px] font-semibold text-brand-text block">ข้อความหลังโอน<input id="admin-payment-message" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
                                 <label class="text-[11px] font-semibold text-brand-text block">หมายเหตุการโอน<input id="admin-payment-note" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
                                 <label class="text-[11px] font-semibold text-brand-text block">เงื่อนไขการชำระเงิน<textarea id="admin-payment-terms" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" rows="3" placeholder="บรรทัดละ 1 ข้อ"></textarea></label>
-                                <div class="space-y-2">
-                                    <p class="text-[11px] font-semibold text-brand-text">ใส่ภาพบัญชี / QR Code</p>
-                                    <p class="text-[10px] text-brand-subtext">ภาพจะแสดงบนหน้าช่องทางการชำระเงิน</p>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <button id="admin-payment-banner-gallery-button" type="button" class="rounded-xl border border-brand-light bg-white px-3 py-3 text-xs font-semibold text-brand-text flex items-center justify-center gap-2"><i class="fa-solid fa-images text-brand-main"></i> เลือกรูป</button>
-                                        <button id="admin-payment-banner-camera-button" type="button" class="rounded-xl bg-brand-main px-3 py-3 text-xs font-semibold text-white flex items-center justify-center gap-2"><i class="fa-solid fa-camera"></i> ถ่ายรูป</button>
-                                    </div>
-                                    <input id="admin-payment-banner-image" class="hidden" type="file" accept="image/*">
-                                    <img id="admin-payment-banner-preview" alt="พรีวิวป้ายบัญชี" class="hidden w-full h-32 rounded-xl object-contain border border-brand-light bg-white">
-                                </div>
                             </div>
                             <label class="text-xs font-semibold text-brand-text block">Facebook<input id="admin-facebook-link" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
                             <label class="text-xs font-semibold text-brand-text block">Line<input id="admin-line-link" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
@@ -985,7 +967,6 @@
                     message: 'โอนเงินแล้วส่งสลิปแจ้งทางแชท',
                     note: 'กรุณาตรวจสอบชื่อบัญชีก่อนโอนทุกครั้ง',
                     terms: ['โอนแล้วไม่คืนเงินทุกกรณี', 'เริ่มงานเมื่อได้รับยอดและสลิปเรียบร้อยแล้ว', 'หากยอดไม่ตรง กรุณาแจ้งก่อนเริ่มงาน'],
-                    bannerImage: ''
                 },
                 facebookLink: 'https://www.facebook.com/share/1BwGuMDGca/?mibextid=wwXIfr',
                 lineLink: 'https://line.me/ti/p/FZM7Ct3e7S',
@@ -1027,11 +1008,8 @@
         let adminProductImageMode = 'gallery';
         let adminHeroImageData = '';
         let adminHeroImageMode = 'gallery';
-        let adminPaymentBannerImageData = '';
-        let adminPaymentBannerImageMode = 'gallery';
         let firebaseApp = null;
         let firebaseDb = null;
-        let firebaseStorage = null;
         let firebaseReady = false;
         let firebaseLoadAttempted = false;
 
@@ -1071,7 +1049,6 @@
             try {
                 firebaseApp = firebase.apps.length ? firebase.app() : firebase.initializeApp(FIREBASE_CONFIG);
                 firebaseDb = firebase.firestore();
-                firebaseStorage = firebase.storage();
                 firebaseReady = true;
                 return true;
             } catch (error) {
@@ -1121,18 +1098,6 @@
             } catch (error) {
                 console.warn('Failed to save to Firebase', error);
             }
-        }
-
-        async function uploadPaymentBannerToFirebase(dataUrl) {
-            if (!dataUrl) return '';
-            if (!initFirebaseBackend() || !firebaseStorage) {
-                throw new Error('Firebase Storage is unavailable');
-            }
-
-            const blob = await fetch(dataUrl).then(response => response.blob());
-            const fileRef = firebaseStorage.ref().child(`payment/payment-banner-${Date.now()}.jpg`);
-            await fileRef.put(blob, { contentType: 'image/jpeg', cacheControl: 'public,max-age=3600' });
-            return fileRef.getDownloadURL();
         }
 
         function mergeState(base, override) {
@@ -1234,27 +1199,6 @@
             });
         }
 
-        function readImageAsCompressedDataUrl(file, maxSize = 900, quality = 0.78) {
-            return new Promise((resolve, reject) => {
-                const image = new Image();
-                const objectUrl = URL.createObjectURL(file);
-                image.onload = () => {
-                    const scale = Math.min(1, maxSize / Math.max(image.naturalWidth, image.naturalHeight));
-                    const canvas = document.createElement('canvas');
-                    canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
-                    canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
-                    canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
-                    URL.revokeObjectURL(objectUrl);
-                    resolve(canvas.toDataURL('image/jpeg', quality));
-                };
-                image.onerror = () => {
-                    URL.revokeObjectURL(objectUrl);
-                    reject(new Error('Failed to load image file'));
-                };
-                image.src = objectUrl;
-            });
-        }
-
         function setProductImagePreview(src) {
             const previewEl = document.getElementById('admin-product-image-preview');
             const placeholderEl = document.getElementById('admin-product-image-placeholder');
@@ -1289,19 +1233,6 @@
             }
         }
 
-        function setPaymentBannerPreview(src) {
-            const previewEl = document.getElementById('admin-payment-banner-preview');
-            if (!previewEl) return;
-
-            if (src) {
-                previewEl.src = src;
-                previewEl.classList.remove('hidden');
-            } else {
-                previewEl.removeAttribute('src');
-                previewEl.classList.add('hidden');
-            }
-        }
-
         function openProductImagePicker(mode) {
             const imageInput = document.getElementById('admin-product-image');
             if (!imageInput) return;
@@ -1321,20 +1252,6 @@
             if (!imageInput) return;
 
             adminHeroImageMode = mode;
-            if (mode === 'camera') {
-                imageInput.setAttribute('capture', 'environment');
-            } else {
-                imageInput.removeAttribute('capture');
-            }
-
-            imageInput.click();
-        }
-
-        function openPaymentBannerImagePicker(mode) {
-            const imageInput = document.getElementById('admin-payment-banner-image');
-            if (!imageInput) return;
-
-            adminPaymentBannerImageMode = mode;
             if (mode === 'camera') {
                 imageInput.setAttribute('capture', 'environment');
             } else {
@@ -1411,19 +1328,6 @@
                 termsList.innerHTML = (payment.terms || []).map(term => `<li><i class="fa-solid fa-check text-brand-main mr-2"></i>${escapeHtml(term)}</li>`).join('');
             }
 
-            const bannerImage = document.getElementById('payment-banner-image');
-            const bannerPlaceholder = document.getElementById('payment-banner-placeholder');
-            if (bannerImage) {
-                if (payment.bannerImage) {
-                    bannerImage.src = payment.bannerImage;
-                    bannerImage.classList.remove('hidden');
-                    if (bannerPlaceholder) bannerPlaceholder.classList.add('hidden');
-                } else {
-                    bannerImage.removeAttribute('src');
-                    bannerImage.classList.add('hidden');
-                    if (bannerPlaceholder) bannerPlaceholder.classList.remove('hidden');
-                }
-            }
         }
 
         function renderPortfolioLinks() {
@@ -1633,9 +1537,6 @@
             const paymentMessage = document.getElementById('admin-payment-message');
             const paymentNote = document.getElementById('admin-payment-note');
             const paymentTerms = document.getElementById('admin-payment-terms');
-            const paymentBannerInput = document.getElementById('admin-payment-banner-image');
-            const paymentBannerGalleryButton = document.getElementById('admin-payment-banner-gallery-button');
-            const paymentBannerCameraButton = document.getElementById('admin-payment-banner-camera-button');
             const facebookLink = document.getElementById('admin-facebook-link');
             const lineLink = document.getElementById('admin-line-link');
             const instagramLink = document.getElementById('admin-instagram-link');
@@ -1668,28 +1569,6 @@
             if (paymentNote) paymentNote.value = payment.note || '';
             if (paymentTerms) paymentTerms.value = formatLines(payment.terms || []);
 
-            adminPaymentBannerImageData = '';
-            setPaymentBannerPreview(payment.bannerImage || '');
-            if (paymentBannerInput) {
-                paymentBannerInput.value = '';
-                paymentBannerInput.onchange = async () => {
-                    const file = paymentBannerInput.files && paymentBannerInput.files[0];
-                    if (!file) {
-                        adminPaymentBannerImageData = '';
-                        setPaymentBannerPreview(payment.bannerImage || '');
-                        return;
-                    }
-
-                    adminPaymentBannerImageData = await readImageAsCompressedDataUrl(file);
-                    setPaymentBannerPreview(adminPaymentBannerImageData);
-                };
-            }
-            if (paymentBannerGalleryButton) {
-                paymentBannerGalleryButton.onclick = () => openPaymentBannerImagePicker('gallery');
-            }
-            if (paymentBannerCameraButton) {
-                paymentBannerCameraButton.onclick = () => openPaymentBannerImagePicker('camera');
-            }
             if (facebookLink) facebookLink.value = appState.general.facebookLink;
             if (lineLink) lineLink.value = appState.general.lineLink;
             if (instagramLink) instagramLink.value = appState.general.instagramLink;
@@ -1940,16 +1819,6 @@
             appState.general.servicesEyebrow = servicesEyebrow ? servicesEyebrow.value.trim() : appState.general.servicesEyebrow;
             appState.general.servicesTitle = servicesTitle ? servicesTitle.value.trim() : appState.general.servicesTitle;
             appState.general.heroImage = adminHeroImageData || appState.general.heroImage;
-            let paymentBannerImage = appState.general.payment?.bannerImage || '';
-            if (adminPaymentBannerImageData) {
-                try {
-                    paymentBannerImage = await uploadPaymentBannerToFirebase(adminPaymentBannerImageData);
-                } catch (error) {
-                    console.warn('Failed to upload payment banner', error);
-                    showCuteToast('อัปโหลดภาพบัญชีไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
-                    return;
-                }
-            }
             appState.general.payment = {
                 ...(appState.general.payment || {}),
                 badge: paymentBadge ? paymentBadge.value.trim() : appState.general.payment?.badge,
@@ -1961,8 +1830,7 @@
                 walletNumber: paymentWalletNumber ? paymentWalletNumber.value.trim() : appState.general.payment?.walletNumber,
                 message: paymentMessage ? paymentMessage.value.trim() : appState.general.payment?.message,
                 note: paymentNote ? paymentNote.value.trim() : appState.general.payment?.note,
-                terms: paymentTerms ? parseLines(paymentTerms.value) : (appState.general.payment?.terms || []),
-                bannerImage: paymentBannerImage
+                terms: paymentTerms ? parseLines(paymentTerms.value) : (appState.general.payment?.terms || [])
             };
             appState.general.facebookLink = facebookLink ? facebookLink.value.trim() : appState.general.facebookLink;
             appState.general.lineLink = lineLink ? lineLink.value.trim() : appState.general.lineLink;
