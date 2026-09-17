@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -1010,6 +1011,7 @@
         let adminHeroImageMode = 'gallery';
         let firebaseApp = null;
         let firebaseDb = null;
+        let firebaseStorage = null;
         let firebaseReady = false;
         let firebaseLoadAttempted = false;
 
@@ -1049,6 +1051,7 @@
             try {
                 firebaseApp = firebase.apps.length ? firebase.app() : firebase.initializeApp(FIREBASE_CONFIG);
                 firebaseDb = firebase.firestore();
+                firebaseStorage = firebase.storage();
                 firebaseReady = true;
                 return true;
             } catch (error) {
@@ -1098,6 +1101,17 @@
             } catch (error) {
                 console.warn('Failed to save to Firebase', error);
             }
+        }
+
+        async function uploadProductImageToFirebase(dataUrl) {
+            if (!initFirebaseBackend() || !firebaseStorage) {
+                throw new Error('Firebase Storage is unavailable');
+            }
+
+            const blob = await fetch(dataUrl).then(response => response.blob());
+            const fileRef = firebaseStorage.ref().child(`products/product-${Date.now()}.jpg`);
+            await fileRef.put(blob, { contentType: 'image/jpeg', cacheControl: 'public,max-age=3600' });
+            return fileRef.getDownloadURL();
         }
 
         function mergeState(base, override) {
@@ -1197,6 +1211,10 @@
                 reader.onerror = () => reject(reader.error || new Error('Failed to read image file'));
                 reader.readAsDataURL(file);
             });
+        }
+
+        function readProductImage(file) {
+            return readFileAsDataUrl(file);
         }
 
         function setProductImagePreview(src) {
@@ -1746,7 +1764,14 @@
 
             const selectedFile = imageInput && imageInput.files ? imageInput.files[0] : null;
             if (selectedFile) {
-                product.image = await readFileAsDataUrl(selectedFile);
+                const imageData = await readProductImage(selectedFile);
+                try {
+                    product.image = await uploadProductImageToFirebase(imageData);
+                } catch (error) {
+                    console.warn('Failed to upload product image', error);
+                    alert('อัปโหลดรูปสินค้าไม่สำเร็จ กรุณาเผยแพร่ Storage Rules ก่อนลองใหม่');
+                    return;
+                }
             } else if (adminProductImageData) {
                 product.image = adminProductImageData;
             } else if (editingProductIndex !== null && editingProductIndex !== undefined) {
@@ -1770,8 +1795,9 @@
                 appState.productCategories[category][editingProductIndex] = product;
             }
 
-            saveAppState();
-            renderProductMenu(activeCategory);
+            activeCategory = category;
+            await saveAppState();
+            renderProductMenu(category);
             renderAdminProductList();
             clearProductForm();
             showCuteToast('บันทึกสินค้าแล้ว');
@@ -1943,34 +1969,4 @@
 
         async function initApp() {
             renderAllContent();
-            initAdminUI();
-            showAdminTab(currentAdminTab);
-            if (sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
-                const loginView = document.getElementById('admin-login-view');
-                const panelView = document.getElementById('admin-panel-view');
-                if (loginView) loginView.classList.add('hidden');
-                if (panelView) panelView.classList.remove('hidden');
-            }
-            await hydrateAppStateFromFirebase();
-            const appContainer = document.getElementById('app-container');
-            if (appContainer) appContainer.classList.add('app-ready');
-        }
-
-        window.switchTab = switchTab;
-        window.showProductMenu = showProductMenu;
-        window.openPaymentPage = openPaymentPage;
-        window.copyPaymentText = copyPaymentText;
-
-        window.addEventListener('DOMContentLoaded', initApp);
-
-        window.addEventListener('load', function() {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                setTimeout(() => {
-                    loadingScreen.classList.add('hidden');
-                }, 800);
-            }
-        });
-    </script>
-</body>
-</html>
+            initAdm
