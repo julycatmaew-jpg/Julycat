@@ -1090,7 +1090,7 @@
 
         async function persistAppStateToFirebase() {
             if (!initFirebaseBackend()) {
-                return;
+                return false;
             }
 
             try {
@@ -1098,8 +1098,10 @@
                     ...appState,
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                 }, { merge: true });
+                return true;
             } catch (error) {
                 console.warn('Failed to save to Firebase', error);
+                return false;
             }
         }
 
@@ -1130,14 +1132,37 @@
             return output;
         }
 
+        async function migrateLegacyProductImages() {
+            const categories = Object.keys(appState.productCategories || {});
+            for (const category of categories) {
+                const products = appState.productCategories[category] || [];
+                for (const product of products) {
+                    if (typeof product.image !== 'string' || !product.image.startsWith('data:')) continue;
+                    product.image = await uploadProductImageToFirebase(product.image);
+                }
+            }
+        }
+
         async function saveAppState() {
+            try {
+                await migrateLegacyProductImages();
+            } catch (error) {
+                console.warn('Failed to migrate product images', error);
+                showCuteToast('ย้ายรูปสินค้าไปออนไลน์ไม่สำเร็จ');
+                return false;
+            }
+
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
             } catch (error) {
                 console.warn('Failed to save admin data locally', error);
-                showCuteToast('บันทึกในเครื่องไม่สำเร็จ กำลังลองซิงก์ข้อมูลออนไลน์');
+                showCuteToast('บันทึกในเครื่องไม่สำเร็จ');
             }
-            await persistAppStateToFirebase();
+            const savedOnline = await persistAppStateToFirebase();
+            if (!savedOnline) {
+                showCuteToast('ซิงก์ข้อมูลออนไลน์ไม่สำเร็จ');
+            }
+            return savedOnline;
         }
 
         function escapeHtml(value) {
@@ -1789,6 +1814,10 @@
                 appState.productCategories[category] = [];
             }
 
+            const previousProduct = editingProductIndex !== null && editingProductIndex !== undefined
+                ? { ...appState.productCategories[category][editingProductIndex] }
+                : null;
+
             if (editingProductIndex === null || editingProductIndex === undefined) {
                 appState.productCategories[category].push(product);
             } else {
@@ -1796,17 +1825,29 @@
             }
 
             activeCategory = category;
-            await saveAppState();
+            const saved = await saveAppState();
+            if (!saved) {
+                if (editingProductIndex === null || editingProductIndex === undefined) {
+                    appState.productCategories[category].pop();
+                } else {
+                    appState.productCategories[category][editingProductIndex] = previousProduct;
+                }
+                return;
+            }
             renderProductMenu(category);
             renderAdminProductList();
             clearProductForm();
             showCuteToast('บันทึกสินค้าแล้ว');
         }
 
-        function deleteProduct(category, index) {
+        async function deleteProduct(category, index) {
             if (!confirm('ต้องการลบสินค้านี้ใช่หรือไม่')) return;
-            appState.productCategories[category].splice(index, 1);
-            saveAppState();
+            const deletedProduct = appState.productCategories[category].splice(index, 1)[0];
+            const saved = await saveAppState();
+            if (!saved) {
+                appState.productCategories[category].splice(index, 0, deletedProduct);
+                return;
+            }
             if (activeCategory === category) {
                 renderProductMenu(category);
             }
@@ -1865,7 +1906,8 @@
             appState.rules = rulesText ? parseLines(rulesText.value) : appState.rules;
             appState.portfolioLinks = portfolioText ? parsePortfolioText(portfolioText.value) : appState.portfolioLinks;
 
-            await saveAppState();
+            const saved = await saveAppState();
+            if (!saved) return;
             renderHomeContent();
             renderServicesContent();
             renderPaymentContent();
@@ -1922,51 +1964,13 @@
             modal.classList.remove('flex');
         }
 
-        function resetAdminData() {
+        async function resetAdminData() {
             if (!confirm('ต้องการรีเซ็ตข้อมูลกลับค่าเริ่มต้นหรือไม่')) return;
+            const previousState = appState;
             appState = cloneDefaultState();
-            saveAppState();
-            activeCategory = 'blockGroup';
-            editingProductIndex = null;
-            adminHeroImageData = '';
-            adminHeroImageMode = 'gallery';
-            renderHomeContent();
-            renderServicesContent();
-            renderPaymentContent();
-            renderPortfolioLinks();
-            renderContactLinks();
-            renderProductMenu(activeCategory);
-            syncAdminForm();
-            showCuteToast('รีเซ็ตข้อมูลแล้ว');
-        }
-
-        function initAdminUI() {
-            const openButton = document.getElementById('admin-open-button');
-            const modal = document.getElementById('admin-modal');
-            const unlockButton = document.getElementById('admin-unlock-button');
-            const saveButton = document.getElementById('admin-save-button');
-            const resetButton = document.getElementById('admin-reset-button');
-            const productSaveButton = document.getElementById('admin-product-save');
-            const productClearButton = document.getElementById('admin-product-clear');
-
-            if (openButton) openButton.addEventListener('click', openAdminModal);
-            if (unlockButton) unlockButton.addEventListener('click', unlockAdminPanel);
-            if (saveButton) saveButton.onclick = saveGeneralContent;
-            if (resetButton) resetButton.addEventListener('click', resetAdminData);
-            if (productSaveButton) productSaveButton.addEventListener('click', saveProduct);
-            if (productClearButton) productClearButton.addEventListener('click', clearProductForm);
-
-            if (modal) {
-                modal.querySelectorAll('[data-admin-close]').forEach(element => {
-                    element.addEventListener('click', closeAdminModal);
-                });
+            const saved = await saveAppState();
+            if (!saved) {
+                appState = previousState;
+                return;
             }
-
-            getAdminTabButtons().forEach(button => {
-                button.addEventListener('click', () => showAdminTab(button.dataset.adminTab));
-            });
-        }
-
-        async function initApp() {
-            renderAllContent();
-            initAdm
+            activeC
