@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -1030,6 +1031,7 @@
         let adminPaymentBannerImageMode = 'gallery';
         let firebaseApp = null;
         let firebaseDb = null;
+        let firebaseStorage = null;
         let firebaseReady = false;
         let firebaseLoadAttempted = false;
 
@@ -1069,6 +1071,7 @@
             try {
                 firebaseApp = firebase.apps.length ? firebase.app() : firebase.initializeApp(FIREBASE_CONFIG);
                 firebaseDb = firebase.firestore();
+                firebaseStorage = firebase.storage();
                 firebaseReady = true;
                 return true;
             } catch (error) {
@@ -1118,6 +1121,18 @@
             } catch (error) {
                 console.warn('Failed to save to Firebase', error);
             }
+        }
+
+        async function uploadPaymentBannerToFirebase(dataUrl) {
+            if (!dataUrl) return '';
+            if (!initFirebaseBackend() || !firebaseStorage) {
+                throw new Error('Firebase Storage is unavailable');
+            }
+
+            const blob = await fetch(dataUrl).then(response => response.blob());
+            const fileRef = firebaseStorage.ref().child(`payment/payment-banner-${Date.now()}.jpg`);
+            await fileRef.put(blob, { contentType: 'image/jpeg', cacheControl: 'public,max-age=3600' });
+            return fileRef.getDownloadURL();
         }
 
         function mergeState(base, override) {
@@ -1925,6 +1940,16 @@
             appState.general.servicesEyebrow = servicesEyebrow ? servicesEyebrow.value.trim() : appState.general.servicesEyebrow;
             appState.general.servicesTitle = servicesTitle ? servicesTitle.value.trim() : appState.general.servicesTitle;
             appState.general.heroImage = adminHeroImageData || appState.general.heroImage;
+            let paymentBannerImage = appState.general.payment?.bannerImage || '';
+            if (adminPaymentBannerImageData) {
+                try {
+                    paymentBannerImage = await uploadPaymentBannerToFirebase(adminPaymentBannerImageData);
+                } catch (error) {
+                    console.warn('Failed to upload payment banner', error);
+                    showCuteToast('อัปโหลดภาพบัญชีไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+                    return;
+                }
+            }
             appState.general.payment = {
                 ...(appState.general.payment || {}),
                 badge: paymentBadge ? paymentBadge.value.trim() : appState.general.payment?.badge,
@@ -1937,7 +1962,7 @@
                 message: paymentMessage ? paymentMessage.value.trim() : appState.general.payment?.message,
                 note: paymentNote ? paymentNote.value.trim() : appState.general.payment?.note,
                 terms: paymentTerms ? parseLines(paymentTerms.value) : (appState.general.payment?.terms || []),
-                bannerImage: adminPaymentBannerImageData || appState.general.payment?.bannerImage || ''
+                bannerImage: paymentBannerImage
             };
             appState.general.facebookLink = facebookLink ? facebookLink.value.trim() : appState.general.facebookLink;
             appState.general.lineLink = lineLink ? lineLink.value.trim() : appState.general.lineLink;
