@@ -274,11 +274,11 @@
                 
                 <div class="grid grid-cols-4 gap-3 mb-8">
                     <!-- Menu Items -->
-                    <div class="flex flex-col items-center gap-2 cursor-pointer group" onclick="switchTab('page-services', 1)">
+                    <div class="flex flex-col items-center gap-2 cursor-pointer group" onclick="switchTab('page-payment', 1)">
                             <div class="home-menu-tile w-14 h-14 rounded-2xl bg-brand-light group-hover:bg-[#D1EEFF] flex items-center justify-center text-brand-main text-xl shadow-sm border border-brand-main/10 transition-colors">
-                            <i class="fa-solid fa-laptop-code"></i>
+                            <i class="fa-solid fa-wallet"></i>
                         </div>
-                        <span class="text-[10px] text-center text-brand-text font-medium leading-tight">รับทำ<br>เว็บไซต์</span>
+                        <span class="text-[10px] text-center text-brand-text font-medium leading-tight">ช่องทาง<br>ชำระเงิน</span>
                     </div>
                     <div class="flex flex-col items-center gap-2 cursor-pointer group" onclick="switchTab('page-goodnotes', 2)">
                         <div class="home-menu-tile w-14 h-14 rounded-2xl bg-brand-light group-hover:bg-[#D1EEFF] flex items-center justify-center text-brand-main text-xl shadow-sm border border-brand-light transition-colors">
@@ -286,11 +286,11 @@
                         </div>
                         <span class="text-[10px] text-center text-brand-text font-medium leading-tight">ตัวอย่าง<br>ผลงาน</span>
                     </div>
-                    <div class="flex flex-col items-center gap-2 cursor-pointer group" onclick="switchTab('page-course', -1)">
+                    <div class="flex flex-col items-center gap-2 cursor-pointer group" onclick="switchTab('page-services', -1)">
                         <div class="home-menu-tile w-14 h-14 rounded-2xl bg-brand-light group-hover:bg-[#D1EEFF] flex items-center justify-center text-brand-text text-xl shadow-sm border border-brand-light transition-colors">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
-                        <span class="text-[10px] text-center text-brand-text font-medium leading-tight">คอร์ส<br>สอนเว็บ</span>
+                        <span class="text-[10px] text-center text-brand-text font-medium leading-tight">รวมกลุ่ม<br>ที่จูลี่มี</span>
                     </div>
                     <div class="flex flex-col items-center gap-2 cursor-pointer group" onclick="switchTab('page-contact', 3)">
                         <div class="home-menu-tile w-14 h-14 rounded-2xl bg-brand-light group-hover:bg-[#D1EEFF] flex items-center justify-center text-brand-main text-xl shadow-sm border border-brand-main/10 transition-colors">
@@ -342,14 +342,13 @@
                     <div class="w-8 h-8 bg-brand-light/80 rounded-full flex items-center justify-center text-brand-main backdrop-blur-md shadow-sm cursor-pointer border border-brand-main/20" onclick="switchTab('page-home', 0)">
                         <i class="fa-solid fa-chevron-left text-sm"></i>
                     </div>
-                    <div class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">Sayohchang</div>
+                    <div data-brand-title class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">Sayohchang</div>
                     <div class="w-8"></div>
                 </div>
                 <div class="text-center mb-2 z-10 relative">
-                    <h1 class="font-outfit text-sm font-medium text-brand-subtext">All Services</h1>
+                    <h1 id="services-eyebrow" class="font-outfit text-sm font-medium text-brand-subtext">All Services</h1>
                     <div class="text-2xl font-bold mt-1 text-brand-text flex justify-center items-center">
-                        รวมกลุ่มที่ซาโยะมี 
-                        <svg class="w-5 h-5 inline-block text-white ml-1 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        <span id="services-title">รวมกลุ่มของ juycat</span><svg class="w-5 h-5 inline-block text-white ml-1 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                     </div>
                 </div>
             </div>
@@ -447,70 +446,83 @@
             </div>
         </div>
 
-        <!-- ==================== PAGE 3: WEBSITE DESIGN ==================== -->
-        <div id="page-website" class="page">
+        <!-- ==================== PAGE 3: PAYMENT ==================== -->
+        <div id="page-payment" class="page">
             <div class="gradient-bg pt-10 px-6 pb-20 relative rounded-b-[40px]">
                 <div class="flex justify-between items-center mb-6">
                     <div class="w-8 h-8 bg-brand-light/80 rounded-full flex items-center justify-center text-brand-main backdrop-blur-md shadow-sm cursor-pointer border border-brand-main/20" onclick="switchTab('page-home', 0)">
                         <i class="fa-solid fa-chevron-left text-sm"></i>
                     </div>
-                    <div class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">PINKJULIELAND</div>
+                    <div data-brand-title class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">Sayohchang</div>
                     <div class="w-8"></div>
                 </div>
                 <div class="text-center mb-2 z-10 relative">
-                    <h1 class="font-outfit text-sm font-medium text-brand-subtext">Website Services</h1>
+                    <h1 class="font-outfit text-sm font-medium text-brand-subtext">Payment Channels</h1>
                     <div class="text-2xl font-bold mt-1 text-brand-text flex justify-center items-center">
-                        รับทำเว็บไซต์ <i class="fa-solid fa-laptop-code ml-2 text-white drop-shadow-sm"></i>
+                        ช่องทางการชำระเงิน <i class="fa-solid fa-wallet ml-2 text-white drop-shadow-sm"></i>
                     </div>
                 </div>
             </div>
 
             <div class="px-5 -mt-10 relative z-10 pb-8 space-y-4">
                 <div class="bg-white rounded-[24px] shadow-app border border-brand-light p-6">
-                    <div class="text-center mb-4">
-                        <span class="bg-brand-light text-brand-main text-[10px] font-bold px-3 py-1 rounded-full border border-brand-main/20">HOT DEAL <i class="fa-solid fa-fire text-brand-text ml-1"></i></span>
-                        <h3 class="text-lg font-bold text-brand-text mt-3 mb-1">ออกแบบเว็บไซต์ร้านค้า</h3>
-                        <p class="text-xs text-brand-subtext">สวยปัง คุมโทน เพิ่มยอดขายให้ร้านคุณ</p>
+                    <div class="text-center mb-5">
+                        <span id="payment-badge" class="bg-brand-light text-brand-main text-[10px] font-bold px-3 py-1 rounded-full border border-brand-main/20">โอนแล้วส่งสลิปได้เลย</span>
+                        <h3 id="payment-title" class="text-lg font-bold text-brand-text mt-3 mb-1">ชำระเงินเข้าบัญชีนี้</h3>
+                        <p class="text-xs text-brand-subtext">ชื่อบัญชี <strong id="payment-account-name" class="text-brand-text">Papatsara S.</strong></p>
                     </div>
-                    
-                    <div class="bg-brand-light/20 rounded-xl p-4 border border-brand-light space-y-2 mb-4">
-                        <div class="flex justify-between items-center border-b border-brand-light pb-2">
-                            <span class="text-sm font-medium text-brand-text"><i class="fa-solid fa-star text-brand-main text-[10px] mr-1"></i> เริ่มต้น</span>
-                            <span class="text-lg font-bold text-brand-main">129.-</span>
+
+                    <img id="payment-banner-image" alt="ภาพบัญชีหรือ QR Code สำหรับโอนเงิน" class="hidden w-4/5 max-w-[280px] mx-auto aspect-square rounded-[32px] object-contain border border-brand-light bg-white mb-4">
+                    <div id="payment-banner-placeholder" class="w-4/5 max-w-[280px] mx-auto aspect-square rounded-[32px] border border-dashed border-brand-main/40 bg-brand-light/20 px-4 py-5 flex flex-col items-center justify-center text-center mb-4">
+                        <i class="fa-regular fa-image text-brand-main text-2xl mb-2"></i>
+                        <p class="text-xs font-semibold text-brand-text">ภาพบัญชี / QR Code</p>
+                        <p class="text-[10px] text-brand-subtext mt-1">อัปโหลดภาพได้จากโหมดแอดมิน</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="rounded-[28px] border border-brand-light bg-brand-light/25 p-4">
+                            <div class="flex items-center justify-between gap-3">
+                                <div>
+                                    <p id="payment-bank-name" class="text-[11px] font-semibold text-brand-main">SCB</p>
+                                    <p class="text-[10px] text-brand-subtext mt-1">เลขบัญชี</p>
+                                    <p id="payment-account-number" class="text-lg font-bold tracking-wide text-brand-text">505-410383-4</p>
+                                </div>
+                                <button id="payment-account-copy" type="button" onclick="copyPaymentText('505-410383-4')" class="shrink-0 rounded-xl bg-white border border-brand-light px-3 py-2 text-[11px] font-semibold text-brand-main">
+                                    <i class="fa-regular fa-copy mr-1"></i>คัดลอก
+                                </button>
+                            </div>
                         </div>
-                        <ul class="text-xs text-brand-subtext space-y-2 pt-2">
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-text mt-0.5"></i> ออกแบบให้ตามเรฟ/บรีฟ</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-text mt-0.5"></i> แถมฟรีโดเมนพร้อมใช้ (ลิงก์สั้น)</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-text mt-0.5"></i> จ่ายครั้งเดียว ไม่มีรายเดือน</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-text mt-0.5"></i> งานเร่งด่วน x2 ของราคาปกติ</li>
-                        </ul>
+
+                        <div class="rounded-[28px] border border-brand-light bg-brand-light/25 p-4">
+                            <div class="flex items-center justify-between gap-3">
+                                <div>
+                                    <p id="payment-wallet-name" class="text-[11px] font-semibold text-brand-main">Wallet</p>
+                                    <p class="text-[10px] text-brand-subtext mt-1">เบอร์วอลเล็ต</p>
+                                    <p id="payment-wallet-number" class="text-lg font-bold tracking-wide text-brand-text">095-842-0643</p>
+                                </div>
+                                <button id="payment-wallet-copy" type="button" onclick="copyPaymentText('095-842-0643')" class="shrink-0 rounded-xl bg-white border border-brand-light px-3 py-2 text-[11px] font-semibold text-brand-main">
+                                    <i class="fa-regular fa-copy mr-1"></i>คัดลอก
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <button onclick="switchTab('page-contact', 3)" class="w-full bg-brand-main hover:bg-brand-dark text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-pink-300/20 transition-all text-sm flex items-center justify-center gap-2">
-                        ทักแชทสั่งทำเลย <i class="fa-regular fa-paper-plane"></i>
-                    </button>
+
+                    <div class="mt-4 rounded-2xl border border-dashed border-brand-main/40 bg-brand-light/30 p-4 text-center">
+                        <i class="fa-solid fa-receipt text-brand-main text-xl mb-2"></i>
+                        <p id="payment-transfer-message" class="text-sm font-semibold text-brand-text">โอนเงินแล้วส่งสลิปแจ้งทางแชท</p>
+                        <p id="payment-transfer-note" class="text-[11px] text-brand-subtext mt-1">กรุณาตรวจสอบชื่อบัญชีก่อนโอนทุกครั้ง</p>
+                    </div>
                 </div>
 
-                <!-- CARD: คอร์สสอนทำเว็บ -->
-                <div class="bg-white rounded-[24px] shadow-app border border-brand-light p-6">
-                    <div class="text-center mb-4">
-                        <span class="bg-[#F5ECE9] text-brand-text text-[10px] font-bold px-3 py-1 rounded-full border border-[#EFE5E2]">BEST SELLER <i class="fa-solid fa-fire text-brand-main ml-1"></i></span>
-                        <h3 class="text-lg font-bold text-brand-text mt-3 mb-1">คอร์สสอนทำ “เว็บร้าน” สไตล์พิ้งจู</h3>
-                        <p class="text-[11px] text-brand-subtext">ไม่ต้องมีพื้นฐาน ไม่ต้องงมเอง <i class="fa-solid fa-heart text-brand-main ml-1"></i></p>
+                <div class="rounded-2xl border border-[#EFE5E2] bg-white shadow-sm overflow-hidden">
+                    <div class="p-4 bg-[#F5ECE9]/60 text-sm font-semibold text-brand-text">
+                        <i class="fa-solid fa-circle-info text-brand-main mr-2"></i>เงื่อนไขการชำระเงิน
                     </div>
-                    <div id="website-course-carousel" class="course-preview-carousel mb-4" data-images='["https://img2.pic.in.th/5584dc01fe8b9b03882c00b90d6e9fe8.jpeg","https://img1.pic.in.th/images/a608fa4b98b3cee3c153ed7cb80d715e.jpeg","https://img2.pic.in.th/e032fecf5bd2cdb432c139ebb5bf70be.jpeg","https://img1.pic.in.th/images/Cynthia---..jpeg"]' data-index="0">
-                        <img src="https://img2.pic.in.th/5584dc01fe8b9b03882c00b90d6e9fe8.jpeg" alt="ตัวอย่างภาพภายในคอร์ส">
-                        <button type="button" class="course-preview-next" onclick="advanceCarousel('website-course-carousel')" aria-label="ดูภาพถัดไป">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-                        <div class="course-preview-dots" aria-hidden="true">
-                            <button type="button" class="course-preview-dot active"></button>
-                            <button type="button" class="course-preview-dot"></button>
-                            <button type="button" class="course-preview-dot"></button>
-                            <button type="button" class="course-preview-dot"></button>
-                        </div>
-                    </div>
-
+                    <ul id="payment-terms-list" class="px-5 py-4 space-y-2 text-xs text-brand-subtext">
+                        <li><i class="fa-solid fa-check text-brand-main mr-2"></i>โอนแล้วไม่คืนเงินทุกกรณี</li>
+                        <li><i class="fa-solid fa-check text-brand-main mr-2"></i>เริ่มงานเมื่อได้รับยอดและสลิปเรียบร้อยแล้ว</li>
+                        <li><i class="fa-solid fa-check text-brand-main mr-2"></i>หากยอดไม่ตรง กรุณาแจ้งก่อนเริ่มงาน</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -522,7 +534,7 @@
                     <div class="w-8 h-8 bg-brand-light/80 rounded-full flex items-center justify-center text-brand-main backdrop-blur-md shadow-sm cursor-pointer border border-brand-main/20" onclick="switchTab('page-home', 0)">
                         <i class="fa-solid fa-chevron-left text-sm"></i>
                     </div>
-                    <div class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">PINKJULIELAND</div>
+                    <div data-brand-title class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">PINKJULIELAND</div>
                     <div class="w-8"></div>
                 </div>
                 <div class="text-center mb-2 z-10 relative">
@@ -549,7 +561,7 @@
                     <div class="w-8 h-8 bg-brand-light/80 rounded-full flex items-center justify-center text-brand-main backdrop-blur-md shadow-sm cursor-pointer border border-brand-main/20" onclick="switchTab('page-home', 0)">
                         <i class="fa-solid fa-chevron-left text-sm"></i>
                     </div>
-                    <div class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">PINKJULIELAND</div>
+                    <div data-brand-title class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">PINKJULIELAND</div>
                     <div class="w-8"></div>
                 </div>
                 <div class="text-center mb-2 z-10 relative">
@@ -672,7 +684,7 @@
                     <div class="w-8 h-8 bg-brand-light/80 rounded-full flex items-center justify-center text-brand-main backdrop-blur-md shadow-sm cursor-pointer border border-brand-main/20" onclick="switchTab('page-home', 0)">
                         <i class="fa-solid fa-chevron-left text-sm"></i>
                     </div>
-                    <div class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">Sayohchang</div>
+                    <div data-brand-title class="text-brand-text font-outfit text-xl font-bold tracking-wide brand-title">Sayohchang</div>
                     <div class="w-8"></div>
                 </div>
                 <div class="text-center mb-2 z-10 relative">
@@ -695,9 +707,9 @@
                     <i class="fa-solid fa-house text-xl mb-0.5"></i>
                     <span class="text-[9px] font-semibold">หน้าแรก</span>
                 </div>
-                <div class="flex flex-col items-center gap-1 cursor-pointer w-1/4 text-brand-subtext hover:text-brand-main transition-colors" onclick="switchTab('page-website', 1)" id="nav-item-1">
-                    <i class="fa-solid fa-laptop-code text-xl mb-0.5"></i>
-                    <span class="text-[9px] font-medium">รับทำเว็บ</span>
+                <div class="flex flex-col items-center gap-1 cursor-pointer w-1/4 text-brand-subtext hover:text-brand-main transition-colors" onclick="switchTab('page-payment', 1)" id="nav-item-1">
+                    <i class="fa-solid fa-wallet text-xl mb-0.5"></i>
+                    <span class="text-[9px] font-medium">ชำระเงิน</span>
                 </div>
                 <div class="relative w-1/4 flex justify-center cursor-pointer" onclick="switchTab('page-services', -1)">
                     <div class="absolute -top-10 w-14 h-14 bg-gradient-to-tr from-brand-main to-pink-300 rounded-full flex items-center justify-center text-white text-2xl shadow-lg shadow-pink-300/50 border-4 border-white transform hover:scale-105 transition-transform" onclick="switchTab('page-services', -1)">
@@ -759,6 +771,8 @@
                             <label class="text-xs font-semibold text-brand-text block">คำอธิบายร้าน<input id="admin-site-subtitle" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
                             <label class="text-xs font-semibold text-brand-text block">ข้อความทักทาย<input id="admin-home-welcome" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
                             <label class="text-xs font-semibold text-brand-text block">ข้อความแนะนำ<textarea id="admin-home-intro" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" rows="2"></textarea></label>
+                            <label class="text-xs font-semibold text-brand-text block">หัวข้อหน้าบริการ<input id="admin-services-eyebrow" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                            <label class="text-xs font-semibold text-brand-text block">ชื่อกลุ่มหน้าบริการ<input id="admin-services-title" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
                             <div class="space-y-2">
                                 <p class="text-xs font-semibold text-brand-text">อัปโหลดรูปโลโก้</p>
                                 <div class="grid grid-cols-2 gap-2">
@@ -777,30 +791,27 @@
                                 <img id="admin-hero-image-preview" alt="Logo preview" class="hidden w-full h-44 rounded-xl object-cover border border-brand-light bg-white mx-auto">
                                 <div id="admin-hero-image-placeholder" class="text-[11px] text-brand-subtext text-center py-10">เลือกรูปโลโก้จากเครื่องได้เลย</div>
                             </div>
-                            <div class="space-y-2">
-                                <p class="text-xs font-semibold text-brand-text">รูปภาพ carousel คอร์ส 4 ภาพ</p>
-                                <p class="text-[10px] text-brand-subtext">เลือกรูปจากอัลบั้มมือถือได้เลย</p>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <div class="space-y-1">
-                                        <button id="admin-course-image-button-1" type="button" class="w-full rounded-xl border border-brand-light bg-white px-2 py-2 text-[11px] font-semibold text-brand-text">เลือกรูปที่ 1</button>
-                                        <input id="admin-course-image-1" class="hidden" type="file" accept="image/*">
-                                        <img id="admin-course-image-preview-1" alt="พรีวิวภาพที่ 1" class="hidden w-full h-20 rounded-lg object-cover border border-brand-light">
+                            <div class="space-y-3 rounded-2xl border border-brand-light bg-brand-light/20 p-3">
+                                <p class="text-xs font-semibold text-brand-text">ข้อมูลช่องทางการโอน</p>
+                                <label class="text-[11px] font-semibold text-brand-text block">ป้ายข้อความ<input id="admin-payment-badge" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">หัวข้อ<input id="admin-payment-title" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">ชื่อบัญชี<input id="admin-payment-account-name" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">ชื่อธนาคาร<input id="admin-payment-bank-name" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">เลขบัญชี<input id="admin-payment-account-number" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">ชื่อช่องทางวอลเล็ต<input id="admin-payment-wallet-name" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">เบอร์วอลเล็ต<input id="admin-payment-wallet-number" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">ข้อความหลังโอน<input id="admin-payment-message" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">หมายเหตุการโอน<input id="admin-payment-note" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
+                                <label class="text-[11px] font-semibold text-brand-text block">เงื่อนไขการชำระเงิน<textarea id="admin-payment-terms" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" rows="3" placeholder="บรรทัดละ 1 ข้อ"></textarea></label>
+                                <div class="space-y-2">
+                                    <p class="text-[11px] font-semibold text-brand-text">ใส่ภาพบัญชี / QR Code</p>
+                                    <p class="text-[10px] text-brand-subtext">ภาพจะแสดงบนหน้าช่องทางการชำระเงิน</p>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <button id="admin-payment-banner-gallery-button" type="button" class="rounded-xl border border-brand-light bg-white px-3 py-3 text-xs font-semibold text-brand-text flex items-center justify-center gap-2"><i class="fa-solid fa-images text-brand-main"></i> เลือกรูป</button>
+                                        <button id="admin-payment-banner-camera-button" type="button" class="rounded-xl bg-brand-main px-3 py-3 text-xs font-semibold text-white flex items-center justify-center gap-2"><i class="fa-solid fa-camera"></i> ถ่ายรูป</button>
                                     </div>
-                                    <div class="space-y-1">
-                                        <button id="admin-course-image-button-2" type="button" class="w-full rounded-xl border border-brand-light bg-white px-2 py-2 text-[11px] font-semibold text-brand-text">เลือกรูปที่ 2</button>
-                                        <input id="admin-course-image-2" class="hidden" type="file" accept="image/*">
-                                        <img id="admin-course-image-preview-2" alt="พรีวิวภาพที่ 2" class="hidden w-full h-20 rounded-lg object-cover border border-brand-light">
-                                    </div>
-                                    <div class="space-y-1">
-                                        <button id="admin-course-image-button-3" type="button" class="w-full rounded-xl border border-brand-light bg-white px-2 py-2 text-[11px] font-semibold text-brand-text">เลือกรูปที่ 3</button>
-                                        <input id="admin-course-image-3" class="hidden" type="file" accept="image/*">
-                                        <img id="admin-course-image-preview-3" alt="พรีวิวภาพที่ 3" class="hidden w-full h-20 rounded-lg object-cover border border-brand-light">
-                                    </div>
-                                    <div class="space-y-1">
-                                        <button id="admin-course-image-button-4" type="button" class="w-full rounded-xl border border-brand-light bg-white px-2 py-2 text-[11px] font-semibold text-brand-text">เลือกรูปที่ 4</button>
-                                        <input id="admin-course-image-4" class="hidden" type="file" accept="image/*">
-                                        <img id="admin-course-image-preview-4" alt="พรีวิวภาพที่ 4" class="hidden w-full h-20 rounded-lg object-cover border border-brand-light">
-                                    </div>
+                                    <input id="admin-payment-banner-image" class="hidden" type="file" accept="image/*">
+                                    <img id="admin-payment-banner-preview" alt="พรีวิวป้ายบัญชี" class="hidden w-full h-32 rounded-xl object-contain border border-brand-light bg-white">
                                 </div>
                             </div>
                             <label class="text-xs font-semibold text-brand-text block">Facebook<input id="admin-facebook-link" class="mt-1 w-full rounded-xl border border-brand-light px-3 py-2 text-sm" type="text"></label>
@@ -955,13 +966,22 @@
                 siteSubtitle: 'Mobile Shop',
                 homeWelcome: 'Welcome to my shop',
                 homeIntro: ':ซาโยะรับทำเว็ปไซต์ ป้ายลายน้ำต่างๆ',
+                servicesEyebrow: 'All Services',
+                servicesTitle: 'รวมกลุ่มของ juycat',
                 heroImage: 'https://img1.pic.in.th/images/logo298e0c11893f3d1f6.png',
-                courseImages: [
-                    'https://img2.pic.in.th/5584dc01fe8b9b03882c00b90d6e9fe8.jpeg',
-                    'https://img1.pic.in.th/images/a608fa4b98b3cee3c153ed7cb80d715e.jpeg',
-                    'https://img2.pic.in.th/e032fecf5bd2cdb432c139ebb5bf70be.jpeg',
-                    'https://img1.pic.in.th/images/Cynthia---..jpeg'
-                ],
+                payment: {
+                    badge: 'โอนแล้วส่งสลิปได้เลย',
+                    title: 'ชำระเงินเข้าบัญชีนี้',
+                    accountName: 'Papatsara S.',
+                    bankName: 'SCB',
+                    accountNumber: '505-410383-4',
+                    walletName: 'Wallet',
+                    walletNumber: '095-842-0643',
+                    message: 'โอนเงินแล้วส่งสลิปแจ้งทางแชท',
+                    note: 'กรุณาตรวจสอบชื่อบัญชีก่อนโอนทุกครั้ง',
+                    terms: ['โอนแล้วไม่คืนเงินทุกกรณี', 'เริ่มงานเมื่อได้รับยอดและสลิปเรียบร้อยแล้ว', 'หากยอดไม่ตรง กรุณาแจ้งก่อนเริ่มงาน'],
+                    bannerImage: ''
+                },
                 facebookLink: 'https://www.facebook.com/share/1BwGuMDGca/?mibextid=wwXIfr',
                 lineLink: 'https://line.me/ti/p/FZM7Ct3e7S',
                 instagramLink: 'https://www.instagram.com/_jele.eiei?igsh=MW55NXJ3dzVzcGpscQ%3D%3D&utm_source=qr.land'
@@ -1002,7 +1022,8 @@
         let adminProductImageMode = 'gallery';
         let adminHeroImageData = '';
         let adminHeroImageMode = 'gallery';
-        let adminCourseImageData = ['', '', '', ''];
+        let adminPaymentBannerImageData = '';
+        let adminPaymentBannerImageMode = 'gallery';
         let firebaseApp = null;
         let firebaseDb = null;
         let firebaseReady = false;
@@ -1223,8 +1244,8 @@
             }
         }
 
-        function setCourseImagePreview(index, src) {
-            const previewEl = document.getElementById(`admin-course-image-preview-${index + 1}`);
+        function setPaymentBannerPreview(src) {
+            const previewEl = document.getElementById('admin-payment-banner-preview');
             if (!previewEl) return;
 
             if (src) {
@@ -1264,6 +1285,20 @@
             imageInput.click();
         }
 
+        function openPaymentBannerImagePicker(mode) {
+            const imageInput = document.getElementById('admin-payment-banner-image');
+            if (!imageInput) return;
+
+            adminPaymentBannerImageMode = mode;
+            if (mode === 'camera') {
+                imageInput.setAttribute('capture', 'environment');
+            } else {
+                imageInput.removeAttribute('capture');
+            }
+
+            imageInput.click();
+        }
+
         function renderHomeContent() {
             const titleEl = document.getElementById('site-title');
             const subtitleEl = document.getElementById('site-subtitle');
@@ -1280,6 +1315,9 @@
             if (introEl) introEl.textContent = appState.general.homeIntro;
             if (heroEl) heroEl.src = appState.general.heroImage;
             if (avatarEl) avatarEl.src = appState.general.heroImage;
+            document.querySelectorAll('[data-brand-title]').forEach(element => {
+                element.textContent = appState.general.siteTitle;
+            });
 
             if (stepsListEl) {
                 stepsListEl.innerHTML = appState.steps.map((item, index) => index === appState.steps.length - 1
@@ -1294,19 +1332,53 @@
             document.title = `${appState.general.siteTitle} - Mobile Shop`;
         }
 
-        function renderCourseCarousel() {
-            const carousel = document.getElementById('website-course-carousel');
-            const images = Array.isArray(appState.general.courseImages) ? appState.general.courseImages.filter(Boolean) : [];
-            if (!carousel || !images.length) return;
+        function renderServicesContent() {
+            const eyebrowEl = document.getElementById('services-eyebrow');
+            const titleEl = document.getElementById('services-title');
+            if (eyebrowEl) eyebrowEl.textContent = appState.general.servicesEyebrow || '';
+            if (titleEl) titleEl.textContent = appState.general.servicesTitle || '';
+        }
 
-            const imageEl = carousel.querySelector('img');
-            const dots = carousel.querySelectorAll('.course-preview-dot');
-            const currentIndex = Math.min(Number(carousel.dataset.index || 0), images.length - 1);
+        function renderPaymentContent() {
+            const payment = appState.general.payment || {};
+            const setText = (id, value) => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = value || '';
+            };
 
-            carousel.dataset.images = JSON.stringify(images);
-            carousel.dataset.index = String(currentIndex);
-            if (imageEl) imageEl.src = images[currentIndex];
-            dots.forEach((dot, index) => dot.classList.toggle('active', index === currentIndex));
+            setText('payment-badge', payment.badge);
+            setText('payment-title', payment.title);
+            setText('payment-account-name', payment.accountName);
+            setText('payment-bank-name', payment.bankName);
+            setText('payment-account-number', payment.accountNumber);
+            setText('payment-wallet-name', payment.walletName);
+            setText('payment-wallet-number', payment.walletNumber);
+            setText('payment-transfer-message', payment.message);
+            setText('payment-transfer-note', payment.note);
+
+            const accountCopyButton = document.getElementById('payment-account-copy');
+            const walletCopyButton = document.getElementById('payment-wallet-copy');
+            if (accountCopyButton) accountCopyButton.setAttribute('onclick', `copyPaymentText(${JSON.stringify(payment.accountNumber || '')})`);
+            if (walletCopyButton) walletCopyButton.setAttribute('onclick', `copyPaymentText(${JSON.stringify(payment.walletNumber || '')})`);
+
+            const termsList = document.getElementById('payment-terms-list');
+            if (termsList) {
+                termsList.innerHTML = (payment.terms || []).map(term => `<li><i class="fa-solid fa-check text-brand-main mr-2"></i>${escapeHtml(term)}</li>`).join('');
+            }
+
+            const bannerImage = document.getElementById('payment-banner-image');
+            const bannerPlaceholder = document.getElementById('payment-banner-placeholder');
+            if (bannerImage) {
+                if (payment.bannerImage) {
+                    bannerImage.src = payment.bannerImage;
+                    bannerImage.classList.remove('hidden');
+                    if (bannerPlaceholder) bannerPlaceholder.classList.add('hidden');
+                } else {
+                    bannerImage.removeAttribute('src');
+                    bannerImage.classList.add('hidden');
+                    if (bannerPlaceholder) bannerPlaceholder.classList.remove('hidden');
+                }
+            }
         }
 
         function renderPortfolioLinks() {
@@ -1360,7 +1432,8 @@
 
         function renderAllContent() {
             renderHomeContent();
-            renderCourseCarousel();
+            renderServicesContent();
+            renderPaymentContent();
             renderPortfolioLinks();
             renderContactLinks();
             renderProductMenu(activeCategory);
@@ -1461,28 +1534,16 @@
             renderProductMenu(category);
         }
 
-        function advanceCarousel(carouselId) {
-            const carousel = document.getElementById(carouselId);
-            if (!carousel) return;
-
-            const images = JSON.parse(carousel.dataset.images || '[]');
-            if (!images.length) return;
-
-            const nextIndex = (Number(carousel.dataset.index || 0) + 1) % images.length;
-            const imageEl = carousel.querySelector('img');
-            const dots = carousel.querySelectorAll('.course-preview-dot');
-
-            carousel.dataset.index = String(nextIndex);
-            if (imageEl) imageEl.src = images[nextIndex];
-            dots.forEach((dot, index) => dot.classList.toggle('active', index === nextIndex));
+        function openPaymentPage() {
+            switchTab('page-payment', 1);
         }
 
-        function startCourseCarousel() {
-            const carousel = document.getElementById('website-course-carousel');
-            if (!carousel || carousel.dataset.autoplayStarted === 'true') return;
-
-            carousel.dataset.autoplayStarted = 'true';
-            setInterval(() => advanceCarousel('website-course-carousel'), 4000);
+        function copyPaymentText(value) {
+            navigator.clipboard.writeText(value).then(() => {
+                showCuteToast(`คัดลอก ${value} แล้ว`);
+            }).catch(() => {
+                alert(`เลขบัญชี: ${value}`);
+            });
         }
 
         function getAdminTabButtons() {
@@ -1515,8 +1576,21 @@
             const siteSubtitle = document.getElementById('admin-site-subtitle');
             const homeWelcome = document.getElementById('admin-home-welcome');
             const homeIntro = document.getElementById('admin-home-intro');
-            const courseImageInputs = [1, 2, 3, 4].map(index => document.getElementById(`admin-course-image-${index}`));
-            const courseImageButtons = [1, 2, 3, 4].map(index => document.getElementById(`admin-course-image-button-${index}`));
+            const servicesEyebrow = document.getElementById('admin-services-eyebrow');
+            const servicesTitle = document.getElementById('admin-services-title');
+            const paymentBadge = document.getElementById('admin-payment-badge');
+            const paymentTitle = document.getElementById('admin-payment-title');
+            const paymentAccountName = document.getElementById('admin-payment-account-name');
+            const paymentBankName = document.getElementById('admin-payment-bank-name');
+            const paymentAccountNumber = document.getElementById('admin-payment-account-number');
+            const paymentWalletName = document.getElementById('admin-payment-wallet-name');
+            const paymentWalletNumber = document.getElementById('admin-payment-wallet-number');
+            const paymentMessage = document.getElementById('admin-payment-message');
+            const paymentNote = document.getElementById('admin-payment-note');
+            const paymentTerms = document.getElementById('admin-payment-terms');
+            const paymentBannerInput = document.getElementById('admin-payment-banner-image');
+            const paymentBannerGalleryButton = document.getElementById('admin-payment-banner-gallery-button');
+            const paymentBannerCameraButton = document.getElementById('admin-payment-banner-camera-button');
             const facebookLink = document.getElementById('admin-facebook-link');
             const lineLink = document.getElementById('admin-line-link');
             const instagramLink = document.getElementById('admin-instagram-link');
@@ -1535,22 +1609,42 @@
             if (siteSubtitle) siteSubtitle.value = appState.general.siteSubtitle;
             if (homeWelcome) homeWelcome.value = appState.general.homeWelcome;
             if (homeIntro) homeIntro.value = appState.general.homeIntro;
-            adminCourseImageData = ['', '', '', ''];
-            courseImageInputs.forEach((input, index) => {
-                if (input) {
-                    input.value = '';
-                    input.onchange = async () => {
-                        const file = input.files && input.files[0];
-                        if (!file) return;
-                        adminCourseImageData[index] = await readFileAsDataUrl(file);
-                        setCourseImagePreview(index, adminCourseImageData[index]);
-                    };
-                }
-                if (courseImageButtons[index]) {
-                    courseImageButtons[index].onclick = () => input && input.click();
-                }
-                setCourseImagePreview(index, appState.general.courseImages?.[index] || '');
-            });
+            if (servicesEyebrow) servicesEyebrow.value = appState.general.servicesEyebrow || '';
+            if (servicesTitle) servicesTitle.value = appState.general.servicesTitle || '';
+            const payment = appState.general.payment || {};
+            if (paymentBadge) paymentBadge.value = payment.badge || '';
+            if (paymentTitle) paymentTitle.value = payment.title || '';
+            if (paymentAccountName) paymentAccountName.value = payment.accountName || '';
+            if (paymentBankName) paymentBankName.value = payment.bankName || '';
+            if (paymentAccountNumber) paymentAccountNumber.value = payment.accountNumber || '';
+            if (paymentWalletName) paymentWalletName.value = payment.walletName || '';
+            if (paymentWalletNumber) paymentWalletNumber.value = payment.walletNumber || '';
+            if (paymentMessage) paymentMessage.value = payment.message || '';
+            if (paymentNote) paymentNote.value = payment.note || '';
+            if (paymentTerms) paymentTerms.value = formatLines(payment.terms || []);
+
+            adminPaymentBannerImageData = '';
+            setPaymentBannerPreview(payment.bannerImage || '');
+            if (paymentBannerInput) {
+                paymentBannerInput.value = '';
+                paymentBannerInput.onchange = async () => {
+                    const file = paymentBannerInput.files && paymentBannerInput.files[0];
+                    if (!file) {
+                        adminPaymentBannerImageData = '';
+                        setPaymentBannerPreview(payment.bannerImage || '');
+                        return;
+                    }
+
+                    adminPaymentBannerImageData = await readFileAsDataUrl(file);
+                    setPaymentBannerPreview(adminPaymentBannerImageData);
+                };
+            }
+            if (paymentBannerGalleryButton) {
+                paymentBannerGalleryButton.onclick = () => openPaymentBannerImagePicker('gallery');
+            }
+            if (paymentBannerCameraButton) {
+                paymentBannerCameraButton.onclick = () => openPaymentBannerImagePicker('camera');
+            }
             if (facebookLink) facebookLink.value = appState.general.facebookLink;
             if (lineLink) lineLink.value = appState.general.lineLink;
             if (instagramLink) instagramLink.value = appState.general.instagramLink;
@@ -1775,7 +1869,18 @@
             const siteSubtitle = document.getElementById('admin-site-subtitle');
             const homeWelcome = document.getElementById('admin-home-welcome');
             const homeIntro = document.getElementById('admin-home-intro');
-            const courseImageInputs = [1, 2, 3, 4].map(index => document.getElementById(`admin-course-image-${index}`));
+            const servicesEyebrow = document.getElementById('admin-services-eyebrow');
+            const servicesTitle = document.getElementById('admin-services-title');
+            const paymentBadge = document.getElementById('admin-payment-badge');
+            const paymentTitle = document.getElementById('admin-payment-title');
+            const paymentAccountName = document.getElementById('admin-payment-account-name');
+            const paymentBankName = document.getElementById('admin-payment-bank-name');
+            const paymentAccountNumber = document.getElementById('admin-payment-account-number');
+            const paymentWalletName = document.getElementById('admin-payment-wallet-name');
+            const paymentWalletNumber = document.getElementById('admin-payment-wallet-number');
+            const paymentMessage = document.getElementById('admin-payment-message');
+            const paymentNote = document.getElementById('admin-payment-note');
+            const paymentTerms = document.getElementById('admin-payment-terms');
             const facebookLink = document.getElementById('admin-facebook-link');
             const lineLink = document.getElementById('admin-line-link');
             const instagramLink = document.getElementById('admin-instagram-link');
@@ -1787,10 +1892,23 @@
             appState.general.siteSubtitle = siteSubtitle ? siteSubtitle.value.trim() : appState.general.siteSubtitle;
             appState.general.homeWelcome = homeWelcome ? homeWelcome.value.trim() : appState.general.homeWelcome;
             appState.general.homeIntro = homeIntro ? homeIntro.value.trim() : appState.general.homeIntro;
-            appState.general.courseImages = courseImageInputs
-                .map((input, index) => adminCourseImageData[index] || appState.general.courseImages?.[index] || '')
-                .filter(Boolean);
+            appState.general.servicesEyebrow = servicesEyebrow ? servicesEyebrow.value.trim() : appState.general.servicesEyebrow;
+            appState.general.servicesTitle = servicesTitle ? servicesTitle.value.trim() : appState.general.servicesTitle;
             appState.general.heroImage = adminHeroImageData || appState.general.heroImage;
+            appState.general.payment = {
+                ...(appState.general.payment || {}),
+                badge: paymentBadge ? paymentBadge.value.trim() : appState.general.payment?.badge,
+                title: paymentTitle ? paymentTitle.value.trim() : appState.general.payment?.title,
+                accountName: paymentAccountName ? paymentAccountName.value.trim() : appState.general.payment?.accountName,
+                bankName: paymentBankName ? paymentBankName.value.trim() : appState.general.payment?.bankName,
+                accountNumber: paymentAccountNumber ? paymentAccountNumber.value.trim() : appState.general.payment?.accountNumber,
+                walletName: paymentWalletName ? paymentWalletName.value.trim() : appState.general.payment?.walletName,
+                walletNumber: paymentWalletNumber ? paymentWalletNumber.value.trim() : appState.general.payment?.walletNumber,
+                message: paymentMessage ? paymentMessage.value.trim() : appState.general.payment?.message,
+                note: paymentNote ? paymentNote.value.trim() : appState.general.payment?.note,
+                terms: paymentTerms ? parseLines(paymentTerms.value) : (appState.general.payment?.terms || []),
+                bannerImage: adminPaymentBannerImageData || appState.general.payment?.bannerImage || ''
+            };
             appState.general.facebookLink = facebookLink ? facebookLink.value.trim() : appState.general.facebookLink;
             appState.general.lineLink = lineLink ? lineLink.value.trim() : appState.general.lineLink;
             appState.general.instagramLink = instagramLink ? instagramLink.value.trim() : appState.general.instagramLink;
@@ -1800,7 +1918,8 @@
 
             saveAppState();
             renderHomeContent();
-            renderCourseCarousel();
+            renderServicesContent();
+            renderPaymentContent();
             renderPortfolioLinks();
             renderContactLinks();
             renderProductMenu(activeCategory);
@@ -1863,6 +1982,8 @@
             adminHeroImageData = '';
             adminHeroImageMode = 'gallery';
             renderHomeContent();
+            renderServicesContent();
+            renderPaymentContent();
             renderPortfolioLinks();
             renderContactLinks();
             renderProductMenu(activeCategory);
@@ -1901,7 +2022,6 @@
             renderAllContent();
             initAdminUI();
             showAdminTab(currentAdminTab);
-            startCourseCarousel();
             if (sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
                 const loginView = document.getElementById('admin-login-view');
                 const panelView = document.getElementById('admin-panel-view');
@@ -1913,7 +2033,8 @@
 
         window.switchTab = switchTab;
         window.showProductMenu = showProductMenu;
-        window.advanceCarousel = advanceCarousel;
+        window.openPaymentPage = openPaymentPage;
+        window.copyPaymentText = copyPaymentText;
 
         window.addEventListener('DOMContentLoaded', initApp);
 
